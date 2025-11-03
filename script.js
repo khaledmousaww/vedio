@@ -15,7 +15,8 @@ statusMessage.textContent = "جاري تهيئة الاتصال...";
 
 // NOTE: We are changing the host to peerjs.net as the heroku server is often down.
 peer = new Peer({
-    host: 'peerjs.net', 
+    key: 'peerjs',
+    host: '0.peerjs.com',
     secure: true,
     port: 443
 });
@@ -96,3 +97,4 @@ endCallButton.addEventListener('click', () => {
         currentCall.close();
     }
 });
+
