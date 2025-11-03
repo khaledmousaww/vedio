@@ -10,13 +10,12 @@ let peer = null;
 let localStream = null;
 let currentCall = null;
 
-// 1. تهيئة PeerJS والحصول على الـ ID الخاص بك
+// 1. Initializing PeerJS and getting your ID
 statusMessage.textContent = "جاري تهيئة الاتصال...";
 
-// PeerJS يستخدم سيرفر وسيط (Broker Server) مجاني لإدارة الاتصال
-// هذا السيرفر هو الذي يسهل عملية الـ Handshake بينكم
+// NOTE: We are changing the host to peerjs.net as the heroku server is often down.
 peer = new Peer({
-    host: 'peerjs-server.herokuapp.com', // سيرفر مجاني مقدم من PeerJS
+    host: 'peerjs.net', 
     secure: true,
     port: 443
 });
@@ -28,28 +27,27 @@ peer.on('open', (id) => {
 
 peer.on('error', (err) => {
     console.error(err);
-    statusMessage.textContent = "خطألاتصال": ${err.type};
+    statusMessage.textContent = خطأ في الاتصال: ${err.type};
 });
 
-// 2. الحصول على بث الكاميرا والميكروفون
+// 2. Getting local camera and microphone stream
 navigator.mediaDevices.getUserMedia({ video: true, audio: true })
     .then((stream) => {
         localStream = stream;
         localVideo.srcObject = stream;
     })
     .catch((err) => {
-        console.error("لم يتم الحصول على الكاميرا والميكروفون:", err);
+        console.error("Failed to get media devices:", err);
         statusMessage.textContent = "الرجاء السماح بالوصول للكاميرا والميكروفون للبدء.";
     });
 
-// 3. استقبال مكالمة (الشخص الذي يتم الاتصال به)
+// 3. Handling incoming calls
 peer.on('call', (call) => {
-    // الرد على المكالمة بالبث المحلي
     call.answer(localStream);
     handleCall(call);
 });
 
-// 4. إجراء مكالمة (الشخص الذي يبدأ الاتصال)
+// 4. Making an outgoing call
 callButton.addEventListener('click', () => {
     const targetId = targetIdInput.value.trim();
     if (!targetId || !localStream) {
@@ -62,10 +60,10 @@ callButton.addEventListener('click', () => {
     handleCall(call);
 });
 
-// 5. وظيفة مشتركة لمعالجة المكالمة
+// 5. Shared function to handle the call process
 function handleCall(call) {
     if (currentCall) {
-        currentCall.close(); // إنهاء أي مكالمة سابقة
+        currentCall.close(); 
     }
     currentCall = call;
 
@@ -79,7 +77,7 @@ function handleCall(call) {
     });
 
     call.on('close', () => {
-        // إعادة تهيئة بعد انتهاء المكالمة
+        // Reset state after call ends
         remoteVideo.srcObject = null;
         callButton.disabled = false;
         endCallButton.disabled = true;
@@ -92,11 +90,9 @@ function handleCall(call) {
     });
 }
 
-// 6. إنهاء المكالمة
+// 6. Ending the call
 endCallButton.addEventListener('click', () => {
     if (currentCall) {
         currentCall.close();
     }
-
 });
-
