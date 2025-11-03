@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مكالمة عائلية خاصة</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>مكالمة التواصل الخاصة</h1>
+        <p>الخطوة الأولى: شارك هذا الرمز مع الطرف الآخر ليقوم بالاتصال بك.</p>
+
+        <div class="my-id-box">
+            <span>رمزك الخاص (ID):</span>
+            <span id="my-id" class="code-text">جارٍ التحميل...</span>
+        </div>
+
+        <hr>
+
+        <p>الخطوة الثانية: أدخل رمز الطرف الآخر واضغط اتصال.</p>
+
+        <input type="text" id="target-id" placeholder="أدخل رمز الطرف الآخر هنا...">
+        <button id="call-button">اتصال فيديو 📞</button>
+        <button id="end-call-button" disabled>إنهاء المكالمة ❌</button>
+
+        <div class="video-container">
+            <video id="local-video" autoplay muted></video>
+            <video id="remote-video" autoplay></video>
+        </div>
+
+        <p id="status-message">الوضع: في انتظار الرمز...</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
