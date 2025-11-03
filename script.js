@@ -28,7 +28,7 @@ peer.on('open', (id) => {
 
 peer.on('error', (err) => {
     console.error(err);
-    statusMessage.textContent = خطأ في الاتصال: ${err.type};
+    statusMessage.textContent = "خطأ في الاتصال": ${err.type};
 });
 
 // 2. الحصول على بث الكاميرا والميكروفون
@@ -97,4 +97,5 @@ endCallButton.addEventListener('click', () => {
     if (currentCall) {
         currentCall.close();
     }
+
 });
