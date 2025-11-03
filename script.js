@@ -28,7 +28,7 @@ peer.on('open', (id) => {
 
 peer.on('error', (err) => {
     console.error(err);
-    statusMessage.textContent = خطأ في الاتصال: ${err.type};
+    statusMessage.textContent =: ${err.type};
 });
 
 // 2. Getting local camera and microphone stream
@@ -97,4 +97,5 @@ endCallButton.addEventListener('click', () => {
         currentCall.close();
     }
 });
+
 
