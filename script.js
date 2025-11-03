@@ -13,7 +13,6 @@ let currentCall = null;
 // 1. Initializing PeerJS and getting your ID
 statusMessage.textContent = "جاري تهيئة الاتصال...";
 
-// NOTE: We are changing the host to peerjs.net as the heroku server is often down.
 peer = new Peer({
     key: 'peerjs',
     host: '0.peerjs.com',
@@ -28,7 +27,7 @@ peer.on('open', (id) => {
 
 peer.on('error', (err) => {
     console.error(err);
-    statusMessage.textContent =: ${err.type};
+    statusMessage.textContent = ${err.type};
 });
 
 // 2. Getting local camera and microphone stream
@@ -97,5 +96,3 @@ endCallButton.addEventListener('click', () => {
         currentCall.close();
     }
 });
-
-
