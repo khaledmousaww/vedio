@@ -1,19 +1,18 @@
 body {
-    direction: rtl;
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     background-color: #f4f4f9;
-    color: #333;
     display: flex;
     justify-content: center;
     padding: 20px;
+    color: #333;
 }
 
 .container {
     background-color: #fff;
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-width: 700px;
     width: 100%;
     text-align: center;
 }
@@ -23,48 +22,41 @@ h1 {
 }
 
 .my-id-box {
-    margin: 20px 0;
-    padding: 15px;
+    margin: 15px 0;
+    padding: 12px;
     background-color: #e9ecef;
-    border-radius: 5px;
+    border-radius: 6px;
 }
 
 .code-text {
     font-weight: bold;
     color: #dc3545;
     font-size: 1.2em;
-    direction: ltr; /* لجعل الـ ID يظهر بشكل صحيح */
     display: block;
     margin-top: 5px;
+    direction: ltr;
 }
 
 input[type="text"] {
     width: calc(100% - 22px);
     padding: 10px;
     margin: 10px 0;
-    border: 1px solid #ccc;
     border-radius: 5px;
-    direction: ltr; /* لجعل الـ ID المُدخل يظهر بشكل صحيح */
+    border: 1px solid #ccc;
+    direction: ltr;
 }
 
-button {
+.buttons button {
     padding: 10px 20px;
     margin: 5px;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    border-radius: 6px;
     font-weight: bold;
+    cursor: pointer;
 }
 
-#call-button {
-    background-color: #28a745;
-    color: white;
-}
-
-#end-call-button {
-    background-color: #dc3545;
-    color: white;
-}
+#call-button { background-color: #28a745; color: #fff; }
+#end-call-button { background-color: #dc3545; color: #fff; }
 
 .video-container {
     display: flex;
@@ -76,13 +68,12 @@ button {
 video {
     width: 48%;
     max-width: 300px;
-    height: auto;
     border: 2px solid #007bff;
-    margin: 5px 0;
     border-radius: 8px;
     background-color: #000;
+    margin: 5px 0;
 }
 
 #local-video {
-    transform: scaleX(-1); /* لعكس الكاميرا المحلية */
+    transform: scaleX(-1);
 }

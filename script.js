@@ -6,94 +6,67 @@ const localVideo = document.getElementById('local-video');
 const remoteVideo = document.getElementById('remote-video');
 const statusMessage = document.getElementById('status-message');
 
-let peer = null;
+let peer = new Peer({
+    host: 'localhost',
+    port: 9000,
+    path: '/',
+    secure: false
+});
+
 let localStream = null;
 let currentCall = null;
 
-// 1. Initializing PeerJS and getting your ID
-statusMessage.textContent = "جاري تهيئة الاتصال...";
-
-peer = new Peer({
-    key: 'peerjs',
-    host: '0.peerjs.com',
-    secure: true,
-    port: 443
-});
-
-peer.on('open', (id) => {
+// الحصول على الـ ID
+peer.on('open', id => {
     myIdElement.textContent = id;
     statusMessage.textContent = "الوضع: جاهز للاتصال. شارك الرمز أعلاه.";
 });
 
-peer.on('error', (err) => {
-    console.error(err);
-    statusMessage.textContent = `${err.type};
+// الحصول على الميديا
+navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+.then(stream => {
+    localStream = stream;
+    localVideo.srcObject = stream;
+})
+.catch(err => {
+    statusMessage.textContent = "الرجاء السماح بالكاميرا والميكروفون!";
 });
 
-// 2. Getting local camera and microphone stream
-navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-    .then((stream) => {
-        localStream = stream;
-        localVideo.srcObject = stream;
-    })
-    .catch((err) => {
-        console.error("Failed to get media devices:", err);
-        statusMessage.textContent = "الرجاء السماح بالوصول للكاميرا والميكروفون للبدء.";
-    });
-
-// 3. Handling incoming calls
-peer.on('call', (call) => {
+// استقبال المكالمات
+peer.on('call', call => {
     call.answer(localStream);
     handleCall(call);
 });
 
-// 4. Making an outgoing call
+// عمل مكالمة
 callButton.addEventListener('click', () => {
     const targetId = targetIdInput.value.trim();
-    if (!targetId || !localStream) {
-        alert("الرجاء إدخال رمز الطرف الآخر والسماح للكاميرا!");
-        return;
-    }
-
-    statusMessage.textContent = جاري الاتصال بـ ${targetId}...;
+    if (!targetId) return alert("ادخل الرمز!");
     const call = peer.call(targetId, localStream);
     handleCall(call);
 });
 
-// 5. Shared function to handle the call process
-function handleCall(call) {
-    if (currentCall) {
-        currentCall.close(); 
-    }
-    currentCall = call;
+// إنهاء المكالمة
+endCallButton.addEventListener('click', () => {
+    if (currentCall) currentCall.close();
+});
 
+// دالة إدارة المكالمة
+function handleCall(call) {
+    if (currentCall) currentCall.close();
+    currentCall = call;
     callButton.disabled = true;
     endCallButton.disabled = false;
     statusMessage.textContent = "تم الاتصال! جاري استقبال الفيديو...";
 
-    call.on('stream', (remoteStream) => {
-        remoteVideo.srcObject = remoteStream;
-        statusMessage.textContent = "المكالمة مستمرة بنجاح.";
+    call.on('stream', stream => {
+        remoteVideo.srcObject = stream;
     });
 
     call.on('close', () => {
-        // Reset state after call ends
         remoteVideo.srcObject = null;
         callButton.disabled = false;
         endCallButton.disabled = true;
         statusMessage.textContent = "تم إنهاء المكالمة. جاهز لاتصال جديد.";
     });
-
-    call.on('error', (err) => {
-        console.error("خطأ في المكالمة:", err);
-        statusMessage.textContent = "حدث خطأ أثناء المكالمة.";
-    });
 }
-
-// 6. Ending the call
-endCallButton.addEventListener('click', () => {
-    if (currentCall) {
-        currentCall.close();
-    }
-});
-
