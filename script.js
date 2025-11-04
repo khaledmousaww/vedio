@@ -7,54 +7,73 @@ const remoteVideo = document.getElementById('remote-video');
 const statusMessage = document.getElementById('status-message');
 
 let peer = new Peer({
-    host: 'localhost',
-    port: 9000,
+    host: '0.peerjs.com',
+    port: 443,
     path: '/',
-    secure: false
+    secure: true
 });
 
 let localStream = null;
 let currentCall = null;
 
-// الحصول على الـ ID
 peer.on('open', id => {
     myIdElement.textContent = id;
     statusMessage.textContent = "الوضع: جاهز للاتصال. شارك الرمز أعلاه.";
 });
 
-// الحصول على الميديا
-navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-.then(stream => {
-    localStream = stream;
-    localVideo.srcObject = stream;
-})
-.catch(err => {
-    statusMessage.textContent = "الرجاء السماح بالكاميرا والميكروفون!";
+peer.on('error', err => {
+    console.error(err);
+    statusMessage.textContent = خطأ في الاتصال: ${err.type || err};
 });
 
-// استقبال المكالمات
+// جلب الكاميرا والميكروفون
+async function initMedia() {
+    try {
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const videoDevice = devices.find(d => d.kind === 'videoinput');
+
+        if (!videoDevice) {
+            statusMessage.textContent = "لا توجد كاميرا متصلة!";
+            return;
+        }
+
+        localStream = await navigator.mediaDevices.getUserMedia({
+            video: { deviceId: videoDevice.deviceId },
+            audio: true
+        });
+
+        localVideo.srcObject = localStream;
+    } catch (err) {
+        console.error(err);
+        statusMessage.textContent = "الرجاء السماح بالكاميرا والميكروفون!";
+    }
+}
+
+initMedia();
+
 peer.on('call', call => {
     call.answer(localStream);
     handleCall(call);
 });
 
-// عمل مكالمة
 callButton.addEventListener('click', () => {
     const targetId = targetIdInput.value.trim();
-    if (!targetId) return alert("ادخل الرمز!");
+    if (!targetId || !localStream) {
+        alert("ادخل الرمز وأعطِ السماح بالكاميرا!");
+        return;
+    }
     const call = peer.call(targetId, localStream);
     handleCall(call);
 });
 
-// إنهاء المكالمة
 endCallButton.addEventListener('click', () => {
     if (currentCall) currentCall.close();
 });
 
-// دالة إدارة المكالمة
 function handleCall(call) {
     if (currentCall) currentCall.close();
     currentCall = call;
+
     callButton.disabled = true;
     endCallButton.disabled = false;
     statusMessage.textContent = "تم الاتصال! جاري استقبال الفيديو...";
@@ -68,5 +87,10 @@ function handleCall(call) {
         callButton.disabled = false;
         endCallButton.disabled = true;
         statusMessage.textContent = "تم إنهاء المكالمة. جاهز لاتصال جديد.";
+    });
+
+    call.on('error', err => {
+        console.error("خطأ في المكالمة:", err);
+        statusMessage.textContent = "حدث خطأ أثناء المكالمة.";
     });
 }
