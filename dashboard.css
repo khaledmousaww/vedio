@@ -1,0 +1,14 @@
+.dashboard-main { max-width: 1100px; margin: 0 auto; padding: 0 12px; }
+.daily-prayers h2, .daily-tip h2 { margin-bottom: 12px; }
+.prayer-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+.prayer-card { background: #fff; border-radius: 12px; padding: 14px; box-shadow: 0 4px 14px rgba(0,0,0,.05); }
+.prayer-time { color: #16a34a; font-weight: 700; margin: 8px 0; }
+.countdown { color: #475569; margin-bottom: 8px; }
+.prayed-btn, .qada-btn { border: none; padding: 8px 12px; border-radius: 8px; color: #fff; cursor: pointer; }
+.prayed-btn { background: #22c55e; }
+.qada-btn { background: #f97316; }
+.daily-tip { margin-top: 18px; background: #fff; border-radius: 12px; padding: 16px; }
+#new-tip-btn, #smart-fasting-btn { margin-top: 10px; border: none; padding: 10px 14px; border-radius: 10px; cursor: pointer; background: #0ea5e9; color: #fff; }
+.quick-access { margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+.tile { background: #fff; border-radius: 12px; padding: 14px; text-align: center; cursor: pointer; border: 1px solid #e5e7eb; }
+.tile:hover { transform: translateY(-2px); }

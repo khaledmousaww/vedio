@@ -1,36 +1,115 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مكالمة خاصة</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
-    <link rel="icon" href="favicon.ico" type="favicon">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مِرفاق - الصفحة الرئيسية</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="header.css" />
+  <link rel="stylesheet" href="dashboard.css" />
+  <link rel="stylesheet" href="cards.css" />
+  <link rel="stylesheet" href="animations.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Almarai:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 <body>
-    <div class="container">
-        <h1>مكالمة الفيديو الخاصة</h1>
-
-        <div class="my-id-box">
-            <span>رمزك الخاص:</span>
-            <span id="my-id" class="code-text">جارٍ التحميل...</span>
-        </div>
-
-        <input type="text" id="target-id" placeholder="أدخل رمز الطرف الآخر">
-        <div class="buttons">
-            <button id="call-button">اتصال فيديو 📞</button>
-            <button id="end-call-button" disabled>إنهاء المكالمة ❌</button>
-        </div>
-
-        <div class="video-container">
-            <video id="local-video" autoplay muted></video>
-            <video id="remote-video" autoplay></video>
-        </div>
-
-        <p id="status-message">الوضع: في انتظار الرمز...</p>
+  <nav class="navbar">
+    <div class="nav-right">
+      <img src="favicon.jpg" alt="Mirfaq Logo" class="logo" />
+      <span class="site-name">مِرفاق</span>
     </div>
+    <div class="nav-left">
+      <a href="azkar.html">الأذكار</a>
+      <a href="#">الصلوات الفائتة</a>
+      <a href="#">السبحة</a>
+    </div>
+  </nav>
 
-    <script src="script.js"></script>
+  <header class="top-bar">
+    <div class="header-left">
+      <div class="date-time">
+        <p class="current-date">--</p>
+        <p class="current-time">--</p>
+      </div>
+      <div class="header-buttons">
+        <button id="dark-light-btn">🌙 الوضع الليلي</button>
+        <button id="simple-mode-btn">🔹 الوضع البسيط</button>
+        <button id="focus-mode-btn">🎯 وضع التركيز</button>
+      </div>
+    </div>
+    <div class="header-right">
+      <img src="favicon.jpg" alt="صورة دينية" class="religious-img" />
+      <p class="slogan">مِرفاق.. خيرُ رفيقٍ لخيرِ طريق.</p>
+    </div>
+  </header>
+
+  <main class="dashboard-main">
+    <section class="daily-prayers">
+      <h2>الصلوات اليومية</h2>
+      <div class="prayer-cards">
+        <div class="prayer-card"><h3>الفجر</h3><p class="prayer-time">--:--</p><p class="countdown">--</p><div class="prayer-buttons"><button class="prayed-btn">صليت</button><button class="qada-btn">قضيت</button></div></div>
+        <div class="prayer-card"><h3>الظهر</h3><p class="prayer-time">--:--</p><p class="countdown">--</p><div class="prayer-buttons"><button class="prayed-btn">صليت</button><button class="qada-btn">قضيت</button></div></div>
+        <div class="prayer-card"><h3>العصر</h3><p class="prayer-time">--:--</p><p class="countdown">--</p><div class="prayer-buttons"><button class="prayed-btn">صليت</button><button class="qada-btn">قضيت</button></div></div>
+        <div class="prayer-card"><h3>المغرب</h3><p class="prayer-time">--:--</p><p class="countdown">--</p><div class="prayer-buttons"><button class="prayed-btn">صليت</button><button class="qada-btn">قضيت</button></div></div>
+        <div class="prayer-card"><h3>العشاء</h3><p class="prayer-time">--:--</p><p class="countdown">--</p><div class="prayer-buttons"><button class="prayed-btn">صليت</button><button class="qada-btn">قضيت</button></div></div>
+      </div>
+    </section>
+
+    <section class="daily-tip">
+      <h2>🌟 نصيحة اليوم</h2>
+      <p id="daily-tip-text">حافظ على صلواتك اليومية، فهي السبيل لراحة القلب.</p>
+      <button id="new-tip-btn">نصيحة جديدة</button>
+    </section>
+
+    <section class="fasting-alert">
+      <button id="smart-fasting-btn">نبهني لصيام غداً</button>
+    </section>
+
+    <section class="quick-access">
+      <div class="tile">الصلوات الفائتة</div>
+      <div class="tile">الصيام الفائت</div>
+      <div class="tile" onclick="window.location.href='azkar.html'">الأذكار</div>
+      <div class="tile">سجل الإنجازات</div>
+      <div class="tile">الإحصائيات</div>
+      <div class="tile">السبحة الإلكترونية</div>
+      <div class="tile">الإعدادات</div>
+      <div class="tile">عن مِرفاق</div>
+      <div class="tile">خاص بالمطور</div>
+    </section>
+  </main>
+
+  <div id="star-modal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <span id="close-star-modal" class="close">&times;</span>
+      <div class="star">⭐</div>
+      <p>تقبل الله منا ومنك صالح الأعمال</p>
+    </div>
+  </div>
+
+  <div id="fasting-modal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <span id="close-modal" class="close">&times;</span>
+      <p>تم التذكير بصيام الغد بإذن الله 🌙</p>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-info">
+      <p>تم تطوير هذا التطبيق بواسطة م. خالد عبدالعليم</p>
+      <a href="#">صفحة المطور</a>
+    </div>
+    <div class="footer-contact">
+      <a href="mailto:contact@elkhaledtech.com">البريد الإلكتروني</a>
+      <a href="https://www.facebook.com/elkhaledtech" target="_blank" rel="noreferrer">فيسبوك</a>
+      <a href="https://www.youtube.com/elkhaledtech" target="_blank" rel="noreferrer">يوتيوب</a>
+      <p>جميع الحقوق محفوظة لدى الخالد تك &copy;2026</p>
+    </div>
+    <div class="footer-quote">
+      <p>ابدأ يومك بصلاتك، ولا تنس الدعاء.</p>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="dashboard.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

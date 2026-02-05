@@ -1,0 +1,18 @@
+.top-bar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 15px 20px; margin: 18px auto; max-width: 1100px;
+  background: #ffffff; border-radius: 16px; box-shadow: 0 8px 20px rgba(0,0,0,.06);
+}
+.header-left { display: flex; flex-direction: column; gap: 10px; }
+.current-date { color: #334155; font-weight: 600; }
+.current-time { color: #16a34a; font-size: 1.3rem; font-weight: 700; }
+.header-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
+.header-buttons button { border: none; border-radius: 10px; background: #16a34a; color: #fff; padding: 8px 12px; cursor: pointer; }
+.header-right { text-align: center; }
+.religious-img { width: 80px; height: 80px; border-radius: 12px; object-fit: cover; }
+.slogan { font-size: .95rem; margin-top: 8px; }
+
+@media (max-width: 768px) {
+  .top-bar { flex-direction: column; gap: 12px; }
+  .header-left { align-items: center; }
+}

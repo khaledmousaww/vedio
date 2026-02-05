@@ -1,0 +1,4 @@
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes popStar { 0% { transform: scale(0.6); } 100% { transform: scale(1); } }
+.modal { animation: fadeIn .25s ease; }
+.star { animation: popStar .25s ease; }

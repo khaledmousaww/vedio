@@ -1,0 +1,5 @@
+.azkar-search { max-width: 900px; margin: 25px auto; padding: 15px; background: #e8f6f3; border-radius: 12px; }
+.azkar-search input, .azkar-search select { width: 100%; padding: 10px; margin: 8px 0; border-radius: 8px; border: 1px solid #d1d5db; }
+.azkar-list { max-width: 900px; margin: 0 auto 20px; }
+.azkar-item { background: #fff; padding: 16px; border-radius: 12px; margin-bottom: 10px; box-shadow: 0 4px 12px rgba(0,0,0,.05); position: relative; }
+.azkar-item::after { content: attr(data-count); position: absolute; left: 12px; top: 12px; background: #16a085; color: #fff; border-radius: 8px; padding: 3px 8px; font-size: .85rem; }
