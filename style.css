@@ -1,79 +1,47 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    color: #333;
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', 'Almarai', sans-serif; }
+body { background: #f6f8fb; color: #1f2937; }
+
+.navbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 20px; background: rgba(255,255,255,.85); position: sticky; top: 0; z-index: 10;
+  backdrop-filter: blur(8px); border-bottom: 1px solid #e5e7eb;
 }
+.nav-right { display: flex; align-items: center; gap: 10px; }
+.logo { width: 42px; height: 42px; border-radius: 10px; }
+.site-name { font-size: 1.4rem; font-weight: 700; }
+.nav-left a { text-decoration: none; color: #334155; margin-inline-start: 16px; font-weight: 600; }
+.nav-left a:hover { color: #16a34a; }
 
-.container {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    max-width: 700px;
-    width: 100%;
-    text-align: center;
+.site-footer {
+  margin-top: 30px; padding: 20px; display: flex; gap: 20px; flex-wrap: wrap;
+  background: rgba(255,255,255,.85); border-top: 1px solid #e5e7eb;
 }
+.site-footer > div { flex: 1 1 220px; }
+.site-footer a, .site-footer p { color: #374151; text-decoration: none; margin-bottom: 6px; display: block; }
 
-h1 {
-    color: #007bff;
+.modal {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 999;
+  justify-content: center; align-items: center;
 }
-
-.my-id-box {
-    margin: 15px 0;
-    padding: 12px;
-    background-color: #e9ecef;
-    border-radius: 6px;
+.modal-content {
+  background: #fff; padding: 20px; border-radius: 12px; min-width: 280px;
+  text-align: center; position: relative;
 }
+.close { position: absolute; top: 10px; inset-inline-end: 12px; cursor: pointer; font-size: 1.5rem; }
+.star { font-size: 3rem; margin-bottom: 8px; }
+.hidden { display: none !important; }
 
-.code-text {
-    font-weight: bold;
-    color: #dc3545;
-    font-size: 1.2em;
-    display: block;
-    margin-top: 5px;
-    direction: ltr;
+body.dark { background: #0f172a; color: #e5e7eb; }
+body.dark .navbar, body.dark .top-bar, body.dark .prayer-card, body.dark .daily-tip, body.dark .tile, body.dark .site-footer {
+  background: #1e293b; color: #f8fafc;
 }
+body.dark .nav-left a, body.dark .site-footer a, body.dark .site-footer p { color: #f1f5f9; }
+body.dark button { background: #334155; color: #fff; }
 
-input[type="text"] {
-    width: calc(100% - 22px);
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    direction: ltr;
-}
+body.simple-mode .quick-access { display: none; }
+body.focus-mode .navbar, body.focus-mode .quick-access, body.focus-mode .daily-tip { display: none; }
 
-.buttons button {
-    padding: 10px 20px;
-    margin: 5px;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-#call-button { background-color: #28a745; color: #fff; }
-#end-call-button { background-color: #dc3545; color: #fff; }
-
-.video-container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    margin-top: 20px;
-}
-
-video {
-    width: 48%;
-    max-width: 300px;
-    border: 2px solid #007bff;
-    border-radius: 8px;
-    background-color: #000;
-    margin: 5px 0;
-}
-
-#local-video {
-    transform: scaleX(-1);
+@media (max-width: 768px) {
+  .navbar { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .site-footer { flex-direction: column; }
 }

@@ -1,0 +1,2 @@
+.prayer-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+button:disabled { opacity: .7; cursor: default; }
